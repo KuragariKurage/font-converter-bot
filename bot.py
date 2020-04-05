@@ -59,6 +59,7 @@ def callback():
         user_id = events.pop().source.user_id
         g.user_id = user_id
         g.session = session
+        app.secret_key = user_id
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
