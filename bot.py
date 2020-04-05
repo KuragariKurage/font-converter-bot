@@ -16,7 +16,7 @@ from textgen import transform
 from richmenu import font_richmenu
 
 app = Flask(__name__)
-app.secret_key('secret')
+app.secret_key = "secret"
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('YOUR_CHANNEL_SECRET', None)
