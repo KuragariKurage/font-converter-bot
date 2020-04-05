@@ -16,6 +16,7 @@ from textgen import transform
 from richmenu import font_richmenu
 
 app = Flask(__name__)
+app.secret_key('secret')
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('YOUR_CHANNEL_SECRET', None)
@@ -66,14 +67,14 @@ def change_font(event):
     session['font'] = event.postback.data
     LineBotApi.reply_message(
         event.reply_token,
-        TextSendMessage(text=transform("font changed", session['font']))
+        TextSendMessage(text=transform("font changed", session.get('font')))
     )
 
 
 @handler.add(MessageEvent, message=TextMessage)
 def transform_text(event):
-    if 'font' in session.keys():
-        result = transform(event.message.text, session['font'])
+    if session.get('font'):
+        result = transform(event.message.text, session.get('font'))
     else:
         result = transform(event.message.text, "MATHEMATICAL_BOLD")
     if result is not None:

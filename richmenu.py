@@ -15,7 +15,7 @@ def font_richmenu():
             action=PostbackAction(
                 type='postback',
                 label='Bold',
-                data='font=MATHEMATICAL_BOLD')
+                data='MATHEMATICAL_BOLD')
         ),
             RichMenuArea(
             bounds=RichMenuBounds(x=1250, y=0,
@@ -23,22 +23,24 @@ def font_richmenu():
             action=PostbackAction(
                 type='postback',
                 label='Italic',
-                data='font=MATHEMATICAL_ITALIC')
+                data='MATHEMATICAL_ITALIC')
         ),
             RichMenuArea(
             bounds=RichMenuBounds(x=0, y=843//2,
                                   width=1250, height=843//2),
-            action=URIAction(
-                label='Bold Italic',
-                uri='https://line.me'
+            action=PostbackAction(
+                type='postback',
+                label='Bold italic',
+                data='MATHEMATICAL_BOLD_ITALIC'
             )
         ),
             RichMenuArea(
             bounds=RichMenuBounds(x=1250, y=843//2,
                                   width=1250, height=843//2),
-            action=URIAction(
+            action=PostbackAction(
+                type='postback',
                 label='Script',
-                uri='https://line.me'
+                data="MATHEMATICAL_SCRIPT"
             )
         )
         ]
