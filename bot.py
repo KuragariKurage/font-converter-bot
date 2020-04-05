@@ -36,8 +36,6 @@ with open("img/menu.png", "rb") as f:
 
 line_bot_api.set_default_rich_menu(rich_menu_id)
 
-session['font'] = "MATHEMATICAL_BOLD"
-
 
 @app.route('/')
 def hello():
@@ -74,7 +72,10 @@ def change_font(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def transform_text(event):
-    result = transform(event.message.text, session['font'])
+    if session['font']:
+        result = transform(event.message.text, session['font'])
+    else:
+        result = transform(event.message.text, "MATHEMATICAL_BOLD")
     if result is not None:
         line_bot_api.reply_message(
             event.reply_token,
