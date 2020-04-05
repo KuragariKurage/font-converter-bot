@@ -19,3 +19,4 @@ if __name__ == "__main__":
     print(transform("ABCabc", "MATHEMATICAL_BOLD"))
     print(transform("ABCabc", "MATHEMATICAL_ITALIC"))
     print(transform("ABCabc", "MATHEMATICAL_BOLD_ITALIC"))
+    print(transform("ABCabc", "SCRIPT"))
