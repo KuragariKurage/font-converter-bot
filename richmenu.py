@@ -12,17 +12,18 @@ def font_richmenu():
         areas=[RichMenuArea(
             bounds=RichMenuBounds(x=0, y=0,
                                   width=1250, height=843//2),
-            action=URIAction(
+            action=PostbackAction(
+                type='postback',
                 label='Bold',
-                uri='https://line.me')
+                data='font=MATHEMATICAL_BOLD')
         ),
             RichMenuArea(
             bounds=RichMenuBounds(x=1250, y=0,
                                   width=1250, height=843//2),
-            action=URIAction(
+            action=PostbackAction(
+                type='postback',
                 label='Italic',
-                uri='https://line.me'
-            )
+                data='font=MATHEMATICAL_ITALIC')
         ),
             RichMenuArea(
             bounds=RichMenuBounds(x=0, y=843//2,

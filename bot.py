@@ -3,12 +3,14 @@
 import os
 import sys
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort, session
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import MessageEvent, TextSendMessage, TextMessage
+from linebot.models import (
+    MessageEvent, TextSendMessage, TextMessage, PostbackEvent,
+)
 
 from textgen import transform
 from richmenu import font_richmenu
@@ -33,6 +35,8 @@ with open("img/menu.png", "rb") as f:
     line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
 line_bot_api.set_default_rich_menu(rich_menu_id)
+
+session['font'] = "MATHEMATICAL_BOLD"
 
 
 @app.route('/')
@@ -59,9 +63,18 @@ def callback():
     return 'OK'
 
 
+@handler.add(PostbackEvent)
+def change_font(event):
+    session['font'] = event.postback.data
+    LineBotApi.reply_message(
+        event.reply_token,
+        TextSendMessage(text=transform("font changed", session['font']))
+    )
+
+
 @handler.add(MessageEvent, message=TextMessage)
 def transform_text(event):
-    result = transform(event.message.text, "MATHEMATICAL_BOLD_ITALIC")
+    result = transform(event.message.text, session['font'])
     if result is not None:
         line_bot_api.reply_message(
             event.reply_token,
