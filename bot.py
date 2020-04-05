@@ -3,7 +3,7 @@
 import os
 import sys
 
-from flask import Flask, request, abort, session, g
+from flask import Flask, request, abort, g, session
 from linebot import (LineBotApi, WebhookHandler, WebhookParser)
 from linebot.exceptions import (
     InvalidSignatureError
@@ -57,8 +57,6 @@ def callback():
     try:
         events = parser.parse(body, signature)
         user_id = events.pop().source.user_id
-        g.user_id = user_id
-        g.session = session
         app.secret_key = user_id
         handler.handle(body, signature)
     except InvalidSignatureError:
@@ -69,7 +67,6 @@ def callback():
 
 @handler.add(PostbackEvent)
 def change_font(event):
-    session = getattr(g, 'session', None)
     session['font'] = event.postback.data
     message = transform("font changed", session.get('font'))
     line_bot_api.reply_message(
@@ -80,7 +77,6 @@ def change_font(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def transform_text(event):
-    session = getattr(g, 'session', None)
     if session.get('font'):
         result = transform(event.message.text, session.get('font'))
     else:
