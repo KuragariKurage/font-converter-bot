@@ -16,6 +16,7 @@ from textgen import transform
 from richmenu import font_richmenu
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('YOUR_CHANNEL_SECRET', None)
@@ -55,9 +56,8 @@ def callback():
 
     # handle webhook body
     try:
-        events = parser.parse(body, signature)
-        user_id = events.pop().source.user_id
-        app.secret_key = user_id
+        # events = parser.parse(body, signature)
+        # user_id = events.pop().source.user_id
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
