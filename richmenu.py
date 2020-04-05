@@ -40,7 +40,7 @@ def font_richmenu():
             action=PostbackAction(
                 type='postback',
                 label='Script',
-                data="MATHEMATICAL_SCRIPT"
+                data="SCRIPT"
             )
         )
         ]
