@@ -1,5 +1,5 @@
 from linebot.models import (RichMenu, RichMenuArea,
-                            RichMenuBounds, RichMenuResponse, RichMenuSize)
+                            RichMenuBounds, RichMenuSize)
 from linebot.models import URIAction, PostbackAction
 
 
