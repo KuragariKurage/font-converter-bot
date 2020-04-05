@@ -8,7 +8,7 @@ def font_richmenu():
         size=RichMenuSize(width=2500, height=843),
         selected=False,
         name="select font",
-        chat_bar_text="Select font",
+        chat_bar_text="Select a font",
         areas=[RichMenuArea(
             bounds=RichMenuBounds(x=0, y=0,
                                   width=1250, height=843//2),
