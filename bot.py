@@ -3,8 +3,8 @@
 import os
 import sys
 
-from flask import Flask, request, abort, session
-from linebot import (LineBotApi, WebhookHandler)
+from flask import Flask, request, abort, session, g
+from linebot import (LineBotApi, WebhookHandler, WebhookParser)
 from linebot.exceptions import (
     InvalidSignatureError
 )
@@ -16,7 +16,6 @@ from textgen import transform
 from richmenu import font_richmenu
 
 app = Flask(__name__)
-app.secret_key = "secret"
 
 # get channel_secret and channel_access_token from your environment variable
 channel_secret = os.getenv('YOUR_CHANNEL_SECRET', None)
@@ -30,6 +29,7 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
+parser = WebhookParser(channel_secret)
 
 rich_menu_id = line_bot_api.create_rich_menu(rich_menu=font_richmenu())
 with open("img/menu.png", "rb") as f:
@@ -55,6 +55,10 @@ def callback():
 
     # handle webhook body
     try:
+        events = parser.parse(body, signature)
+        user_id = events.pop().source.user_id
+        g.user_id = user_id
+        g.session = session
         handler.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
@@ -64,6 +68,7 @@ def callback():
 
 @handler.add(PostbackEvent)
 def change_font(event):
+    session = getattr(g, 'session', None)
     session['font'] = event.postback.data
     message = transform("font changed", session.get('font'))
     line_bot_api.reply_message(
@@ -74,6 +79,7 @@ def change_font(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def transform_text(event):
+    session = getattr(g, 'session', None)
     if session.get('font'):
         result = transform(event.message.text, session.get('font'))
     else:
