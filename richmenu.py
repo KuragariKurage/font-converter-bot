@@ -18,7 +18,7 @@ def font_richmenu():
                 data='MATHEMATICAL_BOLD')
         ),
             RichMenuArea(
-            bounds=RichMenuBounds(x=1250, y=0,
+            bounds=RichMenuBounds(x=0, y=843//2,
                                   width=1250, height=843//2),
             action=PostbackAction(
                 type='postback',
@@ -26,7 +26,7 @@ def font_richmenu():
                 data='MATHEMATICAL_ITALIC')
         ),
             RichMenuArea(
-            bounds=RichMenuBounds(x=0, y=843//2,
+            bounds=RichMenuBounds(x=1250, y=0,
                                   width=1250, height=843//2),
             action=PostbackAction(
                 type='postback',
