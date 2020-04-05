@@ -13,14 +13,14 @@ def font_richmenu():
             bounds=RichMenuBounds(x=0, y=0,
                                   width=1250, height=843//2),
             action=URIAction(
-                label='Mathematical bold',
+                label='Bold',
                 uri='https://line.me')
         ),
             RichMenuArea(
             bounds=RichMenuBounds(x=1250, y=0,
                                   width=1250, height=843//2),
             action=URIAction(
-                label='Mathmatical italic',
+                label='Italic',
                 uri='https://line.me'
             )
         ),
@@ -28,7 +28,7 @@ def font_richmenu():
             bounds=RichMenuBounds(x=0, y=843//2,
                                   width=1250, height=843//2),
             action=URIAction(
-                label='Mathmatical bold italic',
+                label='Bold Italic',
                 uri='https://line.me'
             )
         )
