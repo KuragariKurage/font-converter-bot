@@ -65,9 +65,10 @@ def callback():
 @handler.add(PostbackEvent)
 def change_font(event):
     session['font'] = event.postback.data
-    LineBotApi.reply_message(
+    message = transform("font changed", session.get('font'))
+    line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=transform("font changed", session.get('font')))
+        TextSendMessage(text=message)
     )
 
 
