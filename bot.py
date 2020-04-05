@@ -29,9 +29,8 @@ line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 
 rich_menu_id = line_bot_api.create_rich_menu(rich_menu=font_richmenu())
-for file_path in os.listdir('img'):
-    with open(f"img/{file_path}", "rb") as f:
-        line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
+with open("img/menu.png", "rb") as f:
+    line_bot_api.set_rich_menu_image(rich_menu_id, 'image/png', f)
 
 line_bot_api.set_default_rich_menu(rich_menu_id)
 
