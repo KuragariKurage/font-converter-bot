@@ -3,7 +3,7 @@ from linebot.models import (RichMenu, RichMenuArea,
 from linebot.models import URIAction, PostbackAction
 
 
-def font_richmenu(line_bot_api):
+def font_richmenu():
     rich_menu_to_create = RichMenu(
         size=RichMenuSize(width=2500, height=843),
         selected=False,
