@@ -1,3 +1,5 @@
+import json
+
 CAPITAL_A = 65  # \u0041
 SMALL_A = 97  # \u0061
 
@@ -16,3 +18,6 @@ MATHEMATICAL_ITALIC = gen_font_map(119860, 119886)
 MATHEMATICAL_ITALIC["h"] = "\u210E"
 MATHEMATICAL_BOLD_ITALIC = gen_font_map(119912, ord("\U0001D482"))
 # MATHEMATICAL_SCRIPT = []
+
+# with open("fonts/mathematical_bold_italic.json", "w") as f:
+#     json.dump(MATHEMATICAL_BOLD_ITALIC, f)

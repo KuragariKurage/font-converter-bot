@@ -4,13 +4,14 @@ import os
 import sys
 
 from flask import Flask, request, abort
-from linebot import *
+from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (
     InvalidSignatureError
 )
-from linebot.models import *
+from linebot.models import MessageEvent, TextSendMessage, TextMessage
 
 from textgen import transform
+from richmenu import font_richmenu
 
 app = Flask(__name__)
 
@@ -26,6 +27,8 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
+
+rich_menu_id = line_bot_api.create_rich_menu(rich_menu=font_richmenu())
 
 
 @app.route('/')

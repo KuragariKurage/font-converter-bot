@@ -1,5 +1,10 @@
+import json
+
+
 def transform(text, ch_type):
-    symbols = getattr(__import__("fonts"), ch_type)
+    # symbols = getattr(__import__("fonts"), ch_type)
+    with open(f"fonts/{ch_type.lower()}.json", "r") as f:
+        symbols = json.load(f)
     return "".join([symbols[t]
                     if t in symbols.keys() else t for t in text])
 
