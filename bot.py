@@ -72,7 +72,7 @@ def change_font(event):
 
 @handler.add(MessageEvent, message=TextMessage)
 def transform_text(event):
-    if session['font']:
+    if 'font' in session.keys():
         result = transform(event.message.text, session['font'])
     else:
         result = transform(event.message.text, "MATHEMATICAL_BOLD")
